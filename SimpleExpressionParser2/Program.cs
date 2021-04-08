@@ -129,7 +129,7 @@ namespace SimpleExpressionParser2
             string text
             )
         {
-            this._output.WriteLine($"Expression: `{text}`");
+            this._output.WriteLine($"Input expression: `{text}`");
             this._output.WriteLine();
             try
             {
@@ -141,7 +141,8 @@ namespace SimpleExpressionParser2
                 cser.ShouldPad = true;
                 string xstr = cser.Serialize(xtree, null) ?? string.Empty;
 
-                this._output.WriteLine($"Tidy form: `{xstr}`");
+                this._output.WriteLine($"Tidy-up format: `{xstr}`");
+                this._output.WriteLine();
 
                 //xml serialization
                 var xser = new XTreeXmlSerializer();
@@ -154,7 +155,7 @@ namespace SimpleExpressionParser2
 
                 //evaluation (against the sample context)
                 XSolverResult sr = xtree.Resolve(_ctx);
-                this._output.WriteLine($"Result: `{sr.Error ?? sr.Data}`");
+                this._output.WriteLine($"Evaluate to: `{sr.Error ?? sr.Data}`");
 
                 //verify the compact serialization
                 try
@@ -168,12 +169,12 @@ namespace SimpleExpressionParser2
                 }
                 catch (Exception ex)
                 {
-                    this._output.WriteLine("Verify error: " + ex.Message);
+                    this._output.WriteLine($"Verify error: **{ex.Message}**");
                 }
             }
             catch (Exception ex)
             {
-                this._output.WriteLine("Test error: " + ex.Message);
+                this._output.WriteLine($"Test error: **{ex.Message}**");
             }
             this._output.WriteLine("***");
             this._output.WriteLine();
